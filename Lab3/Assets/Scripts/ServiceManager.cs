@@ -29,12 +29,10 @@ public class ServiceManager : MonoBehaviour
    public void Pause()
     {
         isActive = false;
-        Time.timeScale = 0;
     }
     public void Resume()
     {
         isActive = true;
-        Time.timeScale = 1;
     }
     void Update()
     {

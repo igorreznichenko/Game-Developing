@@ -35,7 +35,6 @@ public abstract class Interactable : MonoBehaviour
      protected virtual void Interact()
     {
         hasInteracted = true;
-        Debug.Log("Interact with" + gameObject);
     }
     private void OnDrawGizmos()
     {

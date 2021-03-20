@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour
 {
     PlayerCreature player;
     List<ItemInfo> inventoryItems = new List<ItemInfo>();
+    GameObject itemsPanel;
+    public GameObject ItemPanel { set
+        {
+            itemsPanel = value;
+        } }
     int maxcapacity = 10;
     public PlayerInventory(PlayerCreature player)
     {
@@ -18,26 +23,20 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Inventory is full");
             return false;
         }
-        inventoryItems.Add(item);
-        ShowInventory();
-        return true;
-    }
-    void ShowInventory()
-    {
-        foreach (var item in inventoryItems)
-            Debug.Log(item.ItemId);
+        InventoryItem[] items = itemsPanel.GetComponentsInChildren<InventoryItem>();
+        int i = 0;
+        while (i < items.Length && items[i].IsItemPresent)
+            i++;
+        if (i != items.Length)
+            items[i].SetItem(item);
 
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        inventoryItems.Add(item);
+        return true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.LogError("Updade");
     }
 }
