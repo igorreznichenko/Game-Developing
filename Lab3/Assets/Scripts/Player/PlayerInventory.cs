@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour
 {
     PlayerCreature player;
-    List<ItemInfo> inventoryItems = new List<ItemInfo>();
+    InventoryItem[] inventoryItems;
     GameObject itemsPanel;
+    int itemCount => inventoryItems.Where(x => x.HasItem).Count();
     public GameObject ItemPanel { set
         {
             itemsPanel = value;
+            inventoryItems = itemsPanel.GetComponentsInChildren<InventoryItem>();
+
         } }
     int maxcapacity = 10;
     public PlayerInventory(PlayerCreature player)
@@ -18,19 +22,16 @@ public class PlayerInventory : MonoBehaviour
     }
     public bool AddItem(ItemInfo item)
     {
-        if (inventoryItems.Count == maxcapacity)
+        if (itemCount == maxcapacity)
         {
             Debug.Log("Inventory is full");
             return false;
         }
-        InventoryItem[] items = itemsPanel.GetComponentsInChildren<InventoryItem>();
         int i = 0;
-        while (i < items.Length && items[i].IsItemPresent)
+        while (i < inventoryItems.Length && inventoryItems[i].IsItemPresent)
             i++;
-        if (i != items.Length)
-            items[i].SetItem(item);
-
-        inventoryItems.Add(item);
+        if (i != inventoryItems.Length)
+            inventoryItems[i].SetItem(item);
         return true;
     }
 

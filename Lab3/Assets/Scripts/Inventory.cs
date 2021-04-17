@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Inventory : MonoBehaviour
+using UnityEngine.EventSystems;
+public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]GameObject Panel;
     bool IsActive;
+    public bool IsOver;
     void Start()
     {
         Panel.SetActive(false);
         IsActive= false;
+        IsOver = false;
     }
     public void OnExit()
     {
+        if (ItemHolder.Instance.IsSelected)
+            return;
         ChangeState();
-
+       
     }
     void ChangeState()
     {
@@ -25,11 +29,20 @@ public class Inventory : MonoBehaviour
         else
             ServiceManager.instance.Resume();
     }
-    // Update is called once per frame
     void Update()
     {
         
         if(Input.GetKeyDown(KeyCode.I))
             ChangeState();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        IsOver = true;  
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        IsOver = false;
     }
 }

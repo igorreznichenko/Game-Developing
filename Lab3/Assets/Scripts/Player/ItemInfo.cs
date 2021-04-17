@@ -13,5 +13,8 @@ public class ItemInfo : ScriptableObject
 }
 public enum ItemId
 {
-    Sword
+    None,
+    Sword,
+    Shield,
+    Armor
 }
