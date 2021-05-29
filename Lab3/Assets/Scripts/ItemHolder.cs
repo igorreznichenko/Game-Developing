@@ -7,8 +7,8 @@ public class ItemHolder : MonoBehaviour
 {
     [SerializeField] Image itemImage;
     [SerializeField] Inventory Inventory;
-    public InventoryItem firstCell;
-    public InventoryItem secondCell;
+    InventoryItem firstCell;
+    InventoryItem secondCell;
     bool isSelected;
     public bool IsSelected => isSelected;
     static ItemHolder instance;
